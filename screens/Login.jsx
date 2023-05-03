@@ -48,6 +48,20 @@ const Login = ({ navigation }) => {
       >
         <Text>Se connecter</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("categories");
+        }}
+      >
+        <Text>Voir les catégories</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("activities");
+        }}
+      >
+        <Text>Voir les activités</Text>
+      </TouchableOpacity>
       <TextInput
         style={styles.input}
         placeholder="Nom d'utilisateur"
