@@ -34,7 +34,7 @@ const Categories = ({ navigation }) => {
         <View style={styles.SearchContainer}>
           <TextInput
             style={styles.SearchInput}
-            placeholder="Recherchez une catégorie..."
+            placeholder="Rechercher une catégorie..."
             placeholderTextColor="#5D5D81"
           />
         </View>

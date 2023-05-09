@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
         <Features />
       </ScrollView>
       <View style={styles.ButtonsContainer}>
-        <NavButtons navigation={navigation} />
+        <NavButtons navigation={navigation} isHome={true} />
       </View>
     </View>
   );

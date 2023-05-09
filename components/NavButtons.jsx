@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 const BUTTON_SIZE = 50;
@@ -17,7 +18,7 @@ const ARC_RADIUS = 120;
 const BUTTON_PILL_W = 95;
 const BUTTON_PILL_H = 35;
 
-const NavButtons = ({ navigation }) => {
+const NavButtons = ({ navigation, isHome }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animation] = useState(new Animated.Value(0));
 
@@ -71,7 +72,7 @@ const NavButtons = ({ navigation }) => {
   };
 
   const renderMenuItems = () => {
-    const numberOfButtons = 2;
+    const numberOfButtons = isHome ? 2 : 3;
     const angleIncrement = Math.PI / (numberOfButtons + 1);
     return Array.from({ length: numberOfButtons }, (_, i) => {
       const angle = angleIncrement * (i + 1);
@@ -86,6 +87,10 @@ const NavButtons = ({ navigation }) => {
         style,
         i === 0
           ? { backgroundColor: "#2CEAA3" }
+          : i === 1
+          ? { backgroundColor: "#2CEAA3" }
+          : i === 2
+          ? { backgroundColor: "#2CEAA3" }
           : { backgroundColor: "#2CEAA3" },
         {
           shadowColor: "#000",
@@ -98,7 +103,14 @@ const NavButtons = ({ navigation }) => {
           elevation: 5,
         },
       ];
-      const text = i === 0 ? "Inscription" : "Connexion";
+      const buttonTexts = isHome
+        ? ["Inscription", "Connexion"]
+        : [
+            <Ionicons name="barbell" size={24} color="white" />,
+            <Ionicons name="person" size={24} color="white" />,
+            <Ionicons name="home" size={24} color="white" />,
+          ];
+      const text = buttonTexts[i];
       return (
         <Animated.View key={i} style={buttonStyle}>
           <TouchableOpacity
@@ -108,6 +120,9 @@ const NavButtons = ({ navigation }) => {
                 closeMenu();
               } else if (text === "Inscription") {
                 navigation.navigate("signUp");
+                closeMenu();
+              } else if (text === "Accueil") {
+                navigation.navigate("home");
                 closeMenu();
               }
             }}

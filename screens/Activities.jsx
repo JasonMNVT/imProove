@@ -34,13 +34,13 @@ const Activities = ({ navigation }) => {
         <View style={styles.SearchContainer}>
           <TextInput
             style={styles.SearchInput}
-            placeholder="Recherchez une activité..."
+            placeholder="Rechercher une activité..."
             placeholderTextColor="#5D5D81"
           />
         </View>
       </ScrollView>
       <View style={styles.ButtonsContainer}>
-        <NavButtons navigation={navigation} />
+        <NavButtons navigation={navigation} isHome={false} />
       </View>
     </View>
   );
