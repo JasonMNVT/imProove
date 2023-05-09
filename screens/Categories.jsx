@@ -6,15 +6,20 @@ import {
   Dimensions,
   Text,
   TextInput,
+  FlatList,
+  TouchableOpacity,
+  Image,
 } from "react-native";
 import Logo from "../components/Logo";
 import NavButtons from "../components/NavButtons";
 import * as Font from "expo-font";
+import { Svg } from "react-native-svg";
 
 const { width } = Dimensions.get("window");
 
 const Categories = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = React.useState(false);
+  const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
     const loadFont = async () => {
@@ -24,6 +29,19 @@ const Categories = ({ navigation }) => {
       setFontLoaded(true);
     };
     loadFont();
+  }, []);
+
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/category");
+        const json = await response.json();
+        setCategories(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCategories();
   }, []);
 
   return (
@@ -38,6 +56,24 @@ const Categories = ({ navigation }) => {
             placeholderTextColor="#5D5D81"
           />
         </View>
+        <FlatList
+          data={categories.sort((a, b) => a.name.localeCompare(b.name))}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.CategoryIcon}>
+              <Svg height="100" width="100">
+                <Image
+                  x="25"
+                  y="25"
+                  width="50"
+                  height="50"
+                  href={{ uri: item.img }}
+                />
+              </Svg>
+              <Text style={{ fontSize: 10 }}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item._id}
+        />
       </ScrollView>
       <View style={styles.ButtonsContainer}>
         <NavButtons navigation={navigation} />
@@ -83,6 +119,11 @@ const styles = StyleSheet.create({
     color: "#5D5D81",
     fontSize: 14,
     fontFamily: "Roboto",
+  },
+  CategoryIcon: {
+    borderWidth: 5,
+    borderColor: "#D4C2FC",
+    borderRadius: 6,
   },
 });
 

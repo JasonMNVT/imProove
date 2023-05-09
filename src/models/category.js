@@ -5,11 +5,9 @@ const categorySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    course: {
-        type: Boolean
-    },
-    sportsCollectifs: {
-        type: Boolean
+    img: {
+        type: String,
+        required: true
     }
 })
 

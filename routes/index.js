@@ -7,6 +7,7 @@ import SignUp from '../screens/SignUp';
 import Categories from '../screens/Categories';
 import Activities from '../screens/Activities';
 import Dashboard from '../screens/Dashboard';
+import Profil from '../screens/Profil';
 
 const Routes = () => {
   const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ const Routes = () => {
           <Stack.Screen name="categories" component={Categories} />
           <Stack.Screen name="activities" component={Activities} />
           <Stack.Screen name="dashboard" component={Dashboard} />
+          <Stack.Screen name="profil" component={Profil} />
         </Stack.Navigator>
     </NavigationContainer>
   )

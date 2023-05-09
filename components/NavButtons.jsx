@@ -72,7 +72,7 @@ const NavButtons = ({ navigation, isHome }) => {
   };
 
   const renderMenuItems = () => {
-    const numberOfButtons = isHome ? 2 : 3;
+    const numberOfButtons = 2;
     const angleIncrement = Math.PI / (numberOfButtons + 1);
     return Array.from({ length: numberOfButtons }, (_, i) => {
       const angle = angleIncrement * (i + 1);
@@ -106,9 +106,22 @@ const NavButtons = ({ navigation, isHome }) => {
       const buttonTexts = isHome
         ? ["Inscription", "Connexion"]
         : [
-            <Ionicons name="barbell" size={24} color="white" />,
-            <Ionicons name="person" size={24} color="white" />,
-            <Ionicons name="home" size={24} color="white" />,
+            <Ionicons
+              name="person"
+              size={24}
+              color="white"
+              onPress={() => {
+                navigation.navigate("profil");
+              }}
+            />,
+            <Ionicons
+              name="home"
+              size={24}
+              color="white"
+              onPress={() => {
+                navigation.navigate("home");
+              }}
+            />,
           ];
       const text = buttonTexts[i];
       return (
@@ -120,9 +133,6 @@ const NavButtons = ({ navigation, isHome }) => {
                 closeMenu();
               } else if (text === "Inscription") {
                 navigation.navigate("signUp");
-                closeMenu();
-              } else if (text === "Accueil") {
-                navigation.navigate("home");
                 closeMenu();
               }
             }}

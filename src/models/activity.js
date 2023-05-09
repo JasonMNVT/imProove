@@ -6,10 +6,14 @@ const activitySchema = new Schema({
         type: String,
         required: true
     },
+    img: {
+        type: String,
+        required: true
+    },
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category'
-    }
+    },
 });
 
 const Activity = mongoose.model('Activity', activitySchema);

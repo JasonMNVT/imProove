@@ -6,6 +6,8 @@ import {
   Dimensions,
   Text,
   TextInput,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import Logo from "../components/Logo";
 import NavButtons from "../components/NavButtons";
@@ -15,6 +17,7 @@ const { width } = Dimensions.get("window");
 
 const Activities = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = React.useState(false);
+  const [activities, setActivities] = React.useState([]);
 
   React.useEffect(() => {
     const loadFont = async () => {
@@ -24,6 +27,19 @@ const Activities = ({ navigation }) => {
       setFontLoaded(true);
     };
     loadFont();
+  }, []);
+
+  React.useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/activities");
+        const json = await response.json();
+        setActivities(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchActivities();
   }, []);
 
   return (
@@ -38,9 +54,18 @@ const Activities = ({ navigation }) => {
             placeholderTextColor="#5D5D81"
           />
         </View>
+        <FlatList
+          data={activities.sort((a, b) => a.name.localeCompare(b.name))}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.ActivityIcon}>
+              <Text style={{ fontSize: 10 }}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item._id}
+        />
       </ScrollView>
       <View style={styles.ButtonsContainer}>
-        <NavButtons navigation={navigation} isHome={false} />
+        <NavButtons navigation={navigation} />
       </View>
     </View>
   );
@@ -83,6 +108,11 @@ const styles = StyleSheet.create({
     color: "#5D5D81",
     fontSize: 14,
     fontFamily: "Roboto",
+  },
+  ActivityIcon: {
+    borderWidth: 5,
+    borderColor: "#D4C2FC",
+    borderRadius: 6,
   },
 });
 
